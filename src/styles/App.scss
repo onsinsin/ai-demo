@@ -1,0 +1,65 @@
+@import 'variables.scss';
+
+.app-layout {
+  height: 100vh;
+
+  .header {
+    background: #fff;
+    padding: 0 $spacing-sm;
+    box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+
+    .trigger {
+      font-size: 18px;
+      line-height: 64px;
+      padding: 0 24px;
+      cursor: pointer;
+      transition: color 0.3s;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+
+    .title {
+      font-size: 20px;
+      font-weight: 600;
+      color: $primary-color;
+    }
+  }
+
+  .content {
+    margin: 0;
+    padding: $spacing-md;
+    background: #f0f2f5;
+    overflow: auto;
+
+    .router-card {
+      height: calc(100vh - #{$header-height} - #{$spacing-md * 2});
+      border-radius: $border-radius-base;
+      box-shadow: $box-shadow-base;
+
+      .ant-card-body {
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .radio-container {
+        padding: $spacing-md;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .router-content {
+        
+        .fullscreen-map {
+          width: 100%;
+          height: calc(100vh - #{$header-height} - #{$spacing-md * 2} - 80px);
+          border-radius: 0 0 $border-radius-base $border-radius-base;
+        }
+      }
+    }
+  }
+}
