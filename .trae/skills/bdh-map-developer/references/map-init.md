@@ -23,7 +23,7 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 
 ```typescript
 // 设置Mapbox访问令牌
-mapboxgl.accessToken = ACCESS_TOKEN
+mapboxgl.accessToken = 'MAPBOX_ACCESS_TOKEN'
 ```
 ### 2.3 准备地图容器
 ```typescript
