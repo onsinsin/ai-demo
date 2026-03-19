@@ -59,7 +59,26 @@ layers.forEach(layer => {
 })
 ```
 
-### 2.4 缓存样式结果以备后续使用
+### 2.4 设置图层初始显示状态
+#### 2.4.1 获取用户输入中对图层显示状态的设置，如有进行下一步
+#### 2.4.2 设置图层显示状态
+根据对图层的显示状态的要设置，解析查询结果中的bizGisLayerRelation属性中的底图（资源）图层id找到对应的mapbox 图层，调用如下代码设置图层显示状态：
+
+- 显示 mapbox 图层
+```
+/** 显示图层 */
+map.setLayoutProperty(layerId, "visibility", "visible");
+```
+
+- 隐藏 mapbox 图层
+
+```
+/** 隐藏图层 */
+map.setLayoutProperty(layerId, "visibility", "none");
+```
+
+
+### 2.5 缓存样式结果以备后续使用
 查询结果中的 bizGisLayerRelation、mapboxStyle属性，需要缓存下来，后续使用。
 
 ## 3 执行规则

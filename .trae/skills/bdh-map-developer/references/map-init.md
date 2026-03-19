@@ -7,7 +7,7 @@
 如未安装，则先在当前工程下安装依赖
 
 ```
-npm install --save-dev mapbox-gl@2.15
+npm install --save mapbox-gl@2.15
 ```
 
 
