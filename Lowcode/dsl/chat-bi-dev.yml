@@ -1,0 +1,856 @@
+app:
+  description: 调试chat bi，实现模板查找及schema修改功能
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: chat-bi-dev
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/wenxin:0.0.3@01f14a7f686c8c0ac1afd9cf57e645983e1b2a69e8cfbb1329493a2d997307e1
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.10@7bd3ea26522e06d90b2098ac2f9eb97214d609a8fa4ed0de313abcef07c31477
+    version: null
+kind: app
+version: 0.4.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: parameter-extractor
+      id: 1774249878753-source-1774253109138-target
+      selected: false
+      source: '1774249878753'
+      sourceHandle: source
+      target: '1774253109138'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1774320810676-false-1774320870482-target
+      selected: false
+      source: '1774320810676'
+      sourceHandle: 'false'
+      target: '1774320870482'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1774430276573-source-1774431554297-target
+      selected: false
+      source: '1774430276573'
+      sourceHandle: source
+      target: '1774431554297'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1774432992074-source-1774428506948-target
+      selected: false
+      source: '1774432992074'
+      sourceHandle: source
+      target: '1774428506948'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 1774428506948-source-1774447268688-target
+      selected: false
+      source: '1774428506948'
+      sourceHandle: source
+      target: '1774447268688'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: http-request
+      id: 1774447268688-true-1774430276573-target
+      selected: false
+      source: '1774447268688'
+      sourceHandle: 'true'
+      target: '1774430276573'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1774447268688-false-1774447301665-target
+      selected: false
+      source: '1774447268688'
+      sourceHandle: 'false'
+      target: '1774447301665'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: parameter-extractor
+        targetType: if-else
+      id: 1774253109138-source-1774320810676-target
+      selected: false
+      source: '1774253109138'
+      sourceHandle: source
+      target: '1774320810676'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: http-request
+      id: 1774452207258-source-1774432992074-target
+      selected: false
+      source: '1774452207258'
+      sourceHandle: source
+      target: '1774432992074'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: code
+      id: 1774320810676-true-1774452207258-target
+      source: '1774320810676'
+      sourceHandle: 'true'
+      target: '1774452207258'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 1774431554297-source-1774432149825-target
+      source: '1774431554297'
+      sourceHandle: source
+      target: '1774432149825'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1774432149825-true-answer-target
+      source: '1774432149825'
+      sourceHandle: 'true'
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1774432149825-false-1774518765228-target
+      source: '1774432149825'
+      sourceHandle: 'false'
+      target: '1774518765228'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1774518765228-source-1774518869930-target
+      source: '1774518765228'
+      sourceHandle: source
+      target: '1774518869930'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1774518869930-source-1774432111916-target
+      source: '1774518869930'
+      sourceHandle: source
+      target: '1774432111916'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - default: ''
+          hint: ''
+          label: serverKey
+          max_length: 256
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: serverKey
+      height: 88
+      id: '1774249878753'
+      position:
+        x: 1.9715945252802385
+        y: 56.90535026421176
+      positionAbsolute:
+        x: 1.9715945252802385
+        y: 56.90535026421176
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1774431554297.result#}}'
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 103
+      id: answer
+      position:
+        x: 3815.0535291444608
+        y: 183.44003776027228
+      positionAbsolute:
+        x: 3815.0535291444608
+        y: 183.44003776027228
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        desc: 严格的参数提取器，输出JSON
+        instruction: '你是精准参数提取助手。任务：只提取，不解释，严格执行规则。
+
+
+          请严格提取以下3个参数：
+
+          1 name:  专题名称，原文提取
+
+          2 year：yyyy格式的年份，未提取到内容时，强制使用默认值："2026"
+
+          3 isModify：布尔，非必填，默认为false
+
+
+          输出要求：
+
+          仅返回纯净JSON，无任何其他文字
+
+
+          示例输入一：查看2021年度的遥感监测专题模板
+
+          示例输出一：{"year": "2021", "name": "遥感监测", "isModify": false}
+
+
+          示例输入二：去年的气象专题，增加一个图表
+
+          示例输出二：{"year": "2025","name": "气象","isModify": true}
+
+
+
+          示例输入三：气象
+
+          示例输出三：{"year": "2026", "name": "气象","isModify": false}'
+        model:
+          completion_params:
+            temperature: 0.1
+            top_p: 0.1
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        parameters:
+        - description: 专题名称
+          name: name
+          required: true
+          type: string
+        - description: yyyy格式的年份
+          name: year
+          required: false
+          type: string
+        - description: 是否有修改专题的要求
+          name: isModify
+          required: false
+          type: boolean
+        query:
+        - sys
+        - query
+        reasoning_mode: prompt
+        selected: false
+        title: 参数提取器
+        type: parameter-extractor
+        vision:
+          enabled: false
+      height: 116
+      id: '1774253109138'
+      position:
+        x: 347.69110679930833
+        y: 46.69082684577356
+      positionAbsolute:
+        x: 347.69110679930833
+        y: 46.69082684577356
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: not empty
+            id: f29e3c74-992e-4edb-9f0d-bcfca56c6a63
+            value: ''
+            varType: string
+            variable_selector:
+            - '1774253109138'
+            - name
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 条件分支
+        type: if-else
+      height: 124
+      id: '1774320810676'
+      position:
+        x: 763.6337916546411
+        y: 56.90535026421176
+      positionAbsolute:
+        x: 763.6337916546411
+        y: 56.90535026421176
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: 未识别到模板名称：{{#sys.query#}}
+        selected: false
+        title: 直接回复 2
+        type: answer
+        variables: []
+      height: 119
+      id: '1774320870482'
+      position:
+        x: 1895.0587183371433
+        y: 761.4364806877575
+      positionAbsolute:
+        x: 1895.0587183371433
+        y: 761.4364806877575
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "\nfunction main({listRes}) {\n    var listResJSON = JSON.parse(listRes);\n\
+          \    return {\n        result: listResJSON?.data?.records?.[0]?.templateId\
+          \ || -1\n    }\n}\n"
+        code_language: javascript
+        outputs:
+          result:
+            children: null
+            type: number
+        selected: false
+        title: 代码执行
+        type: code
+        variables:
+        - value_selector:
+          - '1774432992074'
+          - body
+          value_type: string
+          variable: listRes
+      height: 52
+      id: '1774428506948'
+      position:
+        x: 2010.8256924606449
+        y: -68.46932251495036
+      positionAbsolute:
+        x: 2010.8256924606449
+        y: -68.46932251495036
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data: []
+          type: none
+        headers: access-token:{{#1774249878753.serverKey#}}
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求
+        type: http-request
+        url: http://10.11.14.211:30879/datav-api/screen/template/query/{{#1774428506948.result#}}/detail
+        variables: []
+      height: 173
+      id: '1774430276573'
+      position:
+        x: 2692.3032687619393
+        y: 56.90535026421176
+      positionAbsolute:
+        x: 2692.3032687619393
+        y: 56.90535026421176
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "\n\nfunction main({arg1, arg2}) {\n\n  const result = {\n    success:\
+          \ false,\n    msg: \"\",\n    data: []\n  };\n  try {\n    const listRes\
+          \ = JSON.parse(arg1);\n    if (listRes.success) {\n      result.success\
+          \ = true;\n      const detailRes = JSON.parse(arg2);\n      result.data\
+          \ = listRes.data.records;\n      result.data[0].schema = JSON.stringify(detailRes?.data?.schema\
+          \ || {});\n    } else {\n      result.msg = listRes.msg;\n    }\n  } catch(e){\n\
+          \    result.msg = \"转换结果失败！\" + e.message;\n  }\n  return {\n      result\n\
+          \  }\n}"
+        code_language: javascript
+        outputs:
+          result:
+            children: null
+            type: object
+        selected: false
+        title: 代码执行 2
+        type: code
+        variables:
+        - value_selector:
+          - '1774432992074'
+          - body
+          value_type: string
+          variable: arg1
+        - value_selector:
+          - '1774430276573'
+          - body
+          value_type: string
+          variable: arg2
+      height: 52
+      id: '1774431554297'
+      position:
+        x: 3065.313456687572
+        y: 128.21823020872048
+      positionAbsolute:
+        x: 3065.313456687572
+        y: 128.21823020872048
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1774518869930.text#}}'
+        selected: false
+        title: 直接回复 3
+        type: answer
+        variables: []
+      height: 103
+      id: '1774432111916'
+      position:
+        x: 4632.590679158371
+        y: 479.6599952435379
+      positionAbsolute:
+        x: 4632.590679158371
+        y: 479.6599952435379
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: 005969a8-53e9-4b5e-978d-7f40db34fa5a
+            value: false
+            varType: boolean
+            variable_selector:
+            - '1774253109138'
+            - isModify
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 条件分支 2
+        type: if-else
+      height: 124
+      id: '1774432149825'
+      position:
+        x: 3402.1431337875724
+        y: 269.2398980475248
+      positionAbsolute:
+        x: 3402.1431337875724
+        y: 269.2398980475248
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-869
+            key: ''
+            type: text
+            value: '{
+
+                  "name": "{{#1774452207258.result#}}",
+
+                  "pageNo": 1,
+
+                  "pageSize": 3,
+
+                  "templateType": "pageTemplate"
+
+              }'
+          type: json
+        headers: access-token:{{#1774249878753.serverKey#}}
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求 2
+        type: http-request
+        url: http://10.11.14.211:30879/datav-api/screen/template/query/list
+        variables: []
+      height: 154
+      id: '1774432992074'
+      position:
+        x: 1667.9789216094694
+        y: -110.69357565968295
+      positionAbsolute:
+        x: 1667.9789216094694
+        y: -110.69357565968295
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: ≠
+            id: b01ecd6e-2946-4728-9d0d-b1246f3fc8b0
+            value: '-1'
+            varType: number
+            variable_selector:
+            - '1774428506948'
+            - result
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 条件分支 3
+        type: if-else
+      height: 124
+      id: '1774447268688'
+      position:
+        x: 2326.8151551788587
+        y: 1.8724555019036302
+      positionAbsolute:
+        x: 2326.8151551788587
+        y: 1.8724555019036302
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: 未检索到模板：{{#1774253109138.name#}}
+        selected: false
+        title: 直接回复 4
+        type: answer
+        variables: []
+      height: 119
+      id: '1774447301665'
+      position:
+        x: 2646.53424229674
+        y: 516.3752494133164
+      positionAbsolute:
+        x: 2646.53424229674
+        y: 516.3752494133164
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "\nfunction main({name}) {\n  if (name) {\n    return {\n      result:\
+          \ name.replace(/(专题模板|专题|模板)$/, '')\n    }\n  }\n  return {\n    result:\
+          \ name\n  }\n}\n"
+        code_language: javascript
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 代码执行 3
+        type: code
+        variables:
+        - value_selector:
+          - '1774253109138'
+          - name
+          value_type: string
+          variable: name
+      height: 52
+      id: '1774452207258'
+      position:
+        x: 1357.7652566346815
+        y: 14.527272905856634
+      positionAbsolute:
+        x: 1357.7652566346815
+        y: 14.527272905856634
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - S23oyNKKtSteowhMlaB6q+tkIkynR54p4OEKKHLWSC69TbVNsZqH0cWRTXJJPBDl
+        multiple_retrieval_config:
+          reranking_enable: false
+          reranking_mode: reranking_model
+          reranking_model:
+            model: bce-reranker-base_v1
+            provider: langgenius/wenxin/wenxin
+          top_k: 4
+        query_variable_selector:
+        - sys
+        - query
+        retrieval_mode: multiple
+        selected: false
+        title: 知识检索
+        type: knowledge-retrieval
+      height: 90
+      id: '1774518765228'
+      position:
+        x: 3728.582022489097
+        y: 415.75092177971305
+      positionAbsolute:
+        x: 3728.582022489097
+        y: 415.75092177971305
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1774518765228'
+          - result
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: bae39b18-417b-4e14-9128-023809109564
+          role: system
+          text: '# 角色定义
+
+
+
+            你是专业的【阿里巴巴低代码协议 1.0 解析与修改专家】。
+
+            你**只处理、解析、修改低代码协议 JSON**，不回答无关问题。
+
+
+
+            # 输入规则
+
+
+
+            原始输入： {{#1774431554297.result#}}
+
+            提取JSON：从原始输入中解析出数组，取$[0].schema作为待修改的JSON
+
+
+
+            # 知识库
+
+            {{#context#}}
+
+
+
+            # 修改要求参考
+
+            {{#sys.query#}}
+
+
+            # 核心工作范围
+
+
+
+            1. 解析低代码协议 JSON，输出结构说明
+
+            2. 根据用户指令修改协议内容（增/删/改组件、props、事件、children）
+
+            3. 校验协议是否符合阿里LowCode 1.0 规范
+
+            4. 只处理表单、表格相关组件
+
+            5. 严格遵守协议 1.0 结构，不使用任何外部知识
+
+
+
+            # 绝对禁止行为
+
+
+
+            1. 禁止使用知识库以外的任何知识
+
+            2. 禁止编造协议结构、组件名、字段名
+
+            3. 禁止修改协议版本号（必须保持 1.0.0）
+
+            4. 不知道、不确定、不在知识库中 → 直接回复：无法执行，知识库无相关规则
+
+            5. 禁止输出解释性文字，禁止输出 markdown、代码块以外内容
+
+
+
+            # 工作规则（必须严格遵守）
+
+
+
+            1. 只基于【知识库】中的低代码 1.0 协议规则工作
+
+            2. 修改后必须输出**完整、合法、可直接运行**的 JSON
+
+            3. 保持原协议结构不变：version / componentsTree / methods / lifeCycles
+
+            4. 组件名、字段名、props 必须与知识库完全一致
+
+            5. 修改后自动做格式校验：JSON 无语法错误、引号闭合、逗号正确
+
+
+
+            # 输出规则
+
+
+
+            1. 输出原始输入修改后的JSON
+
+            2. 严格返回修改后的JSON， **只输出纯净 JSON**，无任何多余文字
+
+            3. 无法处理 → 只输出：无法执行，知识库无相关规则'
+        selected: false
+        structured_output_enabled: true
+        title: LLM
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1774518869930'
+      position:
+        x: 4206.26492977835
+        y: 473.91650346855283
+      positionAbsolute:
+        x: 4206.26492977835
+        y: 473.91650346855283
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: -2492.582813255099
+      y: 14.691148724720733
+      zoom: 0.7578582832552012
+  rag_pipeline_variables: []
