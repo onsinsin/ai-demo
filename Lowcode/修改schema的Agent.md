@@ -21,6 +21,7 @@
 严格参考：{{#sys.query#}}
 - 必须先对Page组件按以下流程修改：
   - 赋值$.props.defaultYear = {{#1774253109138.year#}}
+  - 赋值$.state.year = {{#1774253109138.year#}}
   - 读取组织机构信息：{{#1774577593996.result#}}
   - 赋值$.props.orgCodeInfo = {{#1774577593996.result#}} 中的orgCode
   - 赋值$.state.pageOrgInfo 中的组织机构信息为 {{#1774577593996.result#}}的内容

@@ -14,6 +14,11 @@ dependencies:
 - current_identifier: null
   type: marketplace
   value:
+    marketplace_plugin_unique_identifier: langgenius/openai_api_compatible:0.0.7@f20c7275bbcf055ec5d170dd5128e341986e2dcba5266d08fd080d4bdf2288f6
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
     marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.10@7bd3ea26522e06d90b2098ac2f9eb97214d609a8fa4ed0de313abcef07c31477
     version: null
 kind: app
@@ -66,18 +71,6 @@ workflow:
       voice: ''
   graph:
     edges:
-    - data:
-        isInLoop: false
-        sourceType: start
-        targetType: parameter-extractor
-      id: 1774249878753-source-1774253109138-target
-      selected: false
-      source: '1774249878753'
-      sourceHandle: source
-      target: '1774253109138'
-      targetHandle: target
-      type: custom
-      zIndex: 0
     - data:
         isInLoop: false
         sourceType: if-else
@@ -179,6 +172,7 @@ workflow:
         sourceType: if-else
         targetType: code
       id: 1774320810676-true-1774452207258-target
+      selected: false
       source: '1774320810676'
       sourceHandle: 'true'
       target: '1774452207258'
@@ -190,6 +184,7 @@ workflow:
         sourceType: code
         targetType: if-else
       id: 1774431554297-source-1774432149825-target
+      selected: false
       source: '1774431554297'
       sourceHandle: source
       target: '1774432149825'
@@ -201,6 +196,7 @@ workflow:
         sourceType: knowledge-retrieval
         targetType: llm
       id: 1774518765228-source-1774518869930-target
+      selected: false
       source: '1774518765228'
       sourceHandle: source
       target: '1774518869930'
@@ -212,6 +208,7 @@ workflow:
         sourceType: llm
         targetType: answer
       id: 1774518869930-source-1774432111916-target
+      selected: false
       source: '1774518869930'
       sourceHandle: source
       target: '1774432111916'
@@ -223,6 +220,7 @@ workflow:
         sourceType: http-request
         targetType: code
       id: 1774577528133-source-1774577593996-target
+      selected: false
       source: '1774577528133'
       sourceHandle: source
       target: '1774577593996'
@@ -234,6 +232,7 @@ workflow:
         sourceType: code
         targetType: llm
       id: 1774577593996-source-1774518869930-target
+      selected: false
       source: '1774577593996'
       sourceHandle: source
       target: '1774518869930'
@@ -245,6 +244,7 @@ workflow:
         sourceType: if-else
         targetType: knowledge-retrieval
       id: 1774432149825-true-1774518765228-target
+      selected: false
       source: '1774432149825'
       sourceHandle: 'true'
       target: '1774518765228'
@@ -256,6 +256,7 @@ workflow:
         sourceType: if-else
         targetType: http-request
       id: 1774432149825-true-1774577528133-target
+      selected: false
       source: '1774432149825'
       sourceHandle: 'true'
       target: '1774577528133'
@@ -267,9 +268,21 @@ workflow:
         sourceType: if-else
         targetType: answer
       id: 1774432149825-false-answer-target
+      selected: false
       source: '1774432149825'
       sourceHandle: 'false'
       target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: parameter-extractor
+      id: 1774249878753-source-1774253109138-target
+      source: '1774249878753'
+      sourceHandle: source
+      target: '1774253109138'
       targetHandle: target
       type: custom
       zIndex: 0
@@ -291,11 +304,11 @@ workflow:
       height: 88
       id: '1774249878753'
       position:
-        x: 1.9715945252802385
-        y: 56.90535026421176
+        x: 19.816364870648727
+        y: 74.69945937333799
       positionAbsolute:
-        x: 1.9715945252802385
-        y: 56.90535026421176
+        x: 19.816364870648727
+        y: 74.69945937333799
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -326,18 +339,6 @@ workflow:
 
 
 
-          请严格提取以下4个参数：
-
-          1 name:  专题名称，原文提取
-
-          2 year：yyyy格式的年份，未提取到内容时，强制使用默认值："2026"
-
-          3 org: 组织机构
-
-          4 isModify：布尔，非必填，默认为false，当提到组织机构、年份或者有修改的要求时，为true
-
-
-
           输出要求：
 
           仅返回纯净JSON，无任何其他文字
@@ -351,22 +352,23 @@ workflow:
 
 
 
-          示例输入二：生成2024年宝泉岭的物联网专题，并修改地图缩放级别为11、修改俯仰角为60
+          示例输入二：生成2024年宝泉岭分公司的物联网专题，并修改地图缩放级别为11、修改俯仰角为60
 
-          示例输出二：{"year": "2024", "name": "物联网", "org":"宝泉岭","isModify": true}'
+          示例输出二：{"year": "2024", "name": "物联网", "org":"宝泉岭分公司","isModify": true}'
         model:
           completion_params:
+            max_tokens: 8192
             temperature: 0.1
             top_p: 0.1
           mode: chat
           name: deepseek-chat
           provider: langgenius/deepseek/deepseek
         parameters:
-        - description: 专题名称
+        - description: 专题名称，提取的值不允许包含组织机构、年份
           name: name
           required: true
           type: string
-        - description: yyyy格式的年份
+        - description: yyyy格式的年份，如果提到的是"去年"、"今年"需要做转换处理
           name: year
           required: false
           type: string
@@ -374,7 +376,7 @@ workflow:
           name: isModify
           required: false
           type: boolean
-        - description: 组织机构名称
+        - description: 格式为xx集团、xx分公司、xx农场，匹配以下关键词：北大荒农垦集团有限公司，宝泉岭，二九〇农场，绥滨农场，江滨农场，军川农场，名山农场，延军农场，共青农场，宝泉岭农场，新华农场，普阳农场，汤原农场，依兰农场，梧桐河农场，红兴隆，友谊农场，五九七农场，八五二农场，八五三农场，饶河农场，二九一农场，双鸭山农场，江川农场，曙光农场，北兴农场，红旗岭农场，宝山农场，佳南实验农场，建三江，八五九农场，胜利农场，七星农场，勤得利农场，大兴农场，青龙山农场，前进农场，创业农场，红卫农场，前哨农场，前锋农场，洪河农场，鸭绿河农场，二道河农场，浓江农场，区域农服，青龙山灌区，牡丹江，八五〇农场，八五四农场，八五五农场，八六农场，八五七农场，八五八农场，八五一〇农场，八五一一农场，庆丰农场，云山农场，兴凯湖农场，海林农场，宁安农场，双峰农场，兴凯湖灌区，北安，锦河农场，红色边疆农场，逊克农场，龙门农场，襄河农场，龙镇农场，二龙山农场，引龙河农场，尾山农场，格球山农场，长水河农场，赵光农场，红星农场，建设农场，五大连池农场，九三，鹤山农场，跃进农场，大西江农场，尖山农场，荣军农场，红五月农场，七星泡农场，嫩江农场，山河农场，嫩北农场，建边农场，哈拉海农场，齐齐哈尔，克山农场，依安农场，富裕牧场，查哈阳农场，泰来农场，绿色草原牧场，巨浪牧场，齐齐哈尔种畜场，繁荣种畜场，大山种羊场，红旗种马场，云上农场，绥化，嘉荫农场，铁力农场，海伦农场，红光农场，绥棱农场，和平牧场，肇源农场，柳河农场，哈尔滨，庆阳农场，沙河农场，岔林河农场，四方山农场，香坊实验农场，青年农场，闫家岗农场，红旗农场，松花江农场，阿城农场
           name: org
           required: false
           type: string
@@ -390,11 +392,11 @@ workflow:
       height: 116
       id: '1774253109138'
       position:
-        x: 347.69110679930833
-        y: 45.37131893500066
+        x: 514.4217828337503
+        y: 56.145039077355676
       positionAbsolute:
-        x: 347.69110679930833
-        y: 45.37131893500066
+        x: 514.4217828337503
+        y: 56.145039077355676
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -419,11 +421,11 @@ workflow:
       height: 124
       id: '1774320810676'
       position:
-        x: 845.161319819447
-        y: 28.2710356185126
+        x: 920.0286682629139
+        y: 37.753237871697024
       positionAbsolute:
-        x: 845.161319819447
-        y: 28.2710356185126
+        x: 920.0286682629139
+        y: 37.753237871697024
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -469,11 +471,11 @@ workflow:
       height: 52
       id: '1774428506948'
       position:
-        x: 2010.8256924606449
-        y: -68.46932251495036
+        x: 2029.9778048531598
+        y: -71.95152476813485
       positionAbsolute:
-        x: 2010.8256924606449
-        y: -68.46932251495036
+        x: 2029.9778048531598
+        y: -71.95152476813485
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -506,11 +508,11 @@ workflow:
       height: 173
       id: '1774430276573'
       position:
-        x: 2692.3032687619393
-        y: 56.90535026421176
+        x: 2751.500707066076
+        y: 51.68204688443504
       positionAbsolute:
-        x: 2692.3032687619393
-        y: 56.90535026421176
+        x: 2751.500707066076
+        y: 51.68204688443504
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -660,11 +662,11 @@ workflow:
       height: 154
       id: '1774432992074'
       position:
-        x: 1667.9789216094694
-        y: -110.69357565968295
+        x: 1672.6459294058445
+        y: -49.1479456968582
       positionAbsolute:
-        x: 1667.9789216094694
-        y: -110.69357565968295
+        x: 1672.6459294058445
+        y: -49.1479456968582
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -689,11 +691,11 @@ workflow:
       height: 124
       id: '1774447268688'
       position:
-        x: 2326.8151551788587
-        y: 1.8724555019036302
+        x: 2391.235896862772
+        y: -6.833050131057604
       positionAbsolute:
-        x: 2326.8151551788587
-        y: 1.8724555019036302
+        x: 2391.235896862772
+        y: -6.833050131057604
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -708,20 +710,20 @@ workflow:
       height: 119
       id: '1774447301665'
       position:
-        x: 2646.53424229674
-        y: 516.3752494133164
+        x: 2742.0243859868947
+        y: 495.1552174821709
       positionAbsolute:
-        x: 2646.53424229674
-        y: 516.3752494133164
+        x: 2742.0243859868947
+        y: 495.1552174821709
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 242
     - data:
-        code: "\nfunction main({name}) {\n  if (name) {\n    return {\n      result:\
-          \ name.replace(/(专题模板|专题|模板)$/, '')\n    }\n  }\n  return {\n    result:\
-          \ name\n  }\n}\n"
+        code: "\nfunction main({name, org}) {\n  if (name) {\n    return {\n     \
+          \ result: name.replace(/(专题模板|专题|模板)$/, '').replace(org, '')\n    }\n  }\n\
+          \  return {\n    result: name\n  }\n}\n"
         code_language: javascript
         outputs:
           result:
@@ -736,15 +738,20 @@ workflow:
           - name
           value_type: string
           variable: name
+        - value_selector:
+          - '1774253109138'
+          - org
+          value_type: string
+          variable: org
       height: 52
       id: '1774452207258'
       position:
-        x: 1345.5775487485357
+        x: 1303.7911217103217
         y: -29.000255258949466
       positionAbsolute:
-        x: 1345.5775487485357
+        x: 1303.7911217103217
         y: -29.000255258949466
-      selected: false
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -799,10 +806,11 @@ workflow:
             size: 50
         model:
           completion_params:
-            temperature: 0.7
+            max_tokens: 4096
+            temperature: 0.1
           mode: chat
-          name: deepseek-chat
-          provider: langgenius/deepseek/deepseek
+          name: qwen3.5-plus
+          provider: langgenius/openai_api_compatible/openai_api_compatible
         prompt_template:
         - id: bae39b18-417b-4e14-9128-023809109564
           role: system
@@ -843,7 +851,18 @@ workflow:
 
             严格参考：{{#sys.query#}}
 
-            1. 必须将Page组件props中的组织机构编码设置为：{{#1774577593996.result#}}、年份设置为:{{#1774253109138.year#}}
+            - 必须先对Page组件按以下流程修改：
+
+              - 赋值$.props.defaultYear = {{#1774253109138.year#}}
+
+              - 赋值$.state.year = {{#1774253109138.year#}}
+
+              - 读取组织机构信息：{{#1774577593996.result#}}
+
+              - 赋值$.props.orgCodeInfo = {{#1774577593996.result#}} 中的orgCode
+
+              - 赋值$.state.pageOrgInfo 中的组织机构信息为 {{#1774577593996.result#}}的内容
+
 
 
 
@@ -920,11 +939,11 @@ workflow:
       height: 88
       id: '1774518869930'
       position:
-        x: 4697.2554474773615
-        y: 381.89943328096473
+        x: 4669.397829451885
+        y: 363.42347456869567
       positionAbsolute:
-        x: 4697.2554474773615
-        y: 381.89943328096473
+        x: 4669.397829451885
+        y: 363.42347456869567
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -962,11 +981,11 @@ workflow:
       height: 154
       id: '1774577528133'
       position:
-        x: 4043.2854258493144
-        y: 488.6882994619274
+        x: 3981.2685540429884
+        y: 471.5346966218798
       positionAbsolute:
-        x: 4043.2854258493144
-        y: 488.6882994619274
+        x: 3981.2685540429884
+        y: 471.5346966218798
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -975,20 +994,23 @@ workflow:
     - data:
         code: "function findNodeInTree(tree, name) {\n  if (!tree || !tree.length)\
           \ return null;\n  for (let node of tree) {\n    if (node.orgName === name\
-          \ || node.orgName?.includes(name)) {\n      return node;\n    }\n    const\
+          \ || name.indexOf(node.orgName)>=0) {\n      return node;\n    }\n    const\
           \ child = findNodeInTree(node.children, name);\n    if (child) return child;\n\
-          \  }\n  return null;\n}\nfunction main({orgRes, orgName}) {\n  let orgCode\
-          \ = '86';\n  if(!(orgName == null || orgName == '' || /^(全垦区)|(垦区)|(集团)$/.test(orgName)))\
-          \ {\n    try {\n      const orgResJson = JSON.parse(orgRes);\n      if (orgResJson\
-          \ && orgResJson.success && orgResJson.data) {\n        const node = findNodeInTree(orgResJson.data.children\
-          \ || [], orgName)\n        if (node) {\n          orgCode = node.orgCode\n\
-          \        }\n      }\n    } catch(err) {\n      \n    }\n  }\n  return {\n\
-          \      result: orgCode\n  }\n}"
+          \  }\n  return null;\n}\nfunction main({orgRes, orgName}) {\n  let orgNode\
+          \ = null;\n  if(!(orgName == null || orgName == '')) {\n    try {\n    \
+          \  const orgResJson = JSON.parse(orgRes);\n      if (orgResJson && orgResJson.success\
+          \ && orgResJson.data) {\n        let node = orgResJson.data;\n        orgNode\
+          \ = { orgCode: orgResJson.data.orgCode, orgName: orgResJson.data.orgName,\
+          \ orgLevel: orgResJson.data.orgLevel};\n        let matchNode = findNodeInTree(orgResJson.data.children\
+          \ || [], orgName)\n        if (matchNode) {\n          node = matchNode;\n\
+          \        }\n        orgNode = { orgCode: node.orgCode, orgName: node.orgName,\
+          \ orgLevel: node.orgLevel};\n      }\n    } catch(err) {\n    }\n  }\n \
+          \ return {\n      result: orgNode\n  }\n}"
         code_language: javascript
         outputs:
           result:
             children: null
-            type: string
+            type: object
         selected: false
         title: 代码执行 4
         type: code
@@ -1006,18 +1028,18 @@ workflow:
       height: 52
       id: '1774577593996'
       position:
-        x: 4393.021367734274
-        y: 528.9590099336308
+        x: 4373.728362991908
+        y: 509.02931000891374
       positionAbsolute:
-        x: 4393.021367734274
-        y: 528.9590099336308
-      selected: true
+        x: 4373.728362991908
+        y: 509.02931000891374
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 242
     viewport:
-      x: -2731.1703991872573
-      y: 132.80484781829935
-      zoom: 0.6597539553864495
+      x: -384.37570124977583
+      y: 336.9342320438529
+      zoom: 0.5743491774985191
   rag_pipeline_variables: []
