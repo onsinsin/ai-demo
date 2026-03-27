@@ -1,11 +1,16 @@
 app:
-  description: 【勿动】调试chat bi，当前使用版本
+  description: 调试chat bi，实现模板查找及schema修改功能
   icon: 🤖
   icon_background: '#FFEAD5'
   mode: advanced-chat
   name: chat-bi-v1
   use_icon_as_answer_icon: false
 dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/wenxin:0.0.3@01f14a7f686c8c0ac1afd9cf57e645983e1b2a69e8cfbb1329493a2d997307e1
+    version: null
 - current_identifier: null
   type: marketplace
   value:
@@ -90,6 +95,7 @@ workflow:
         sourceType: http-request
         targetType: code
       id: 1774430276573-source-1774431554297-target
+      selected: false
       source: '1774430276573'
       sourceHandle: source
       target: '1774431554297'
@@ -98,31 +104,10 @@ workflow:
       zIndex: 0
     - data:
         isInLoop: false
-        sourceType: code
-        targetType: answer
-      id: 1774431554297-source-answer-target
-      source: '1774431554297'
-      sourceHandle: source
-      target: answer
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
-        sourceType: if-else
-        targetType: answer
-      id: 1774432149825-false-1774432111916-target
-      source: '1774432149825'
-      sourceHandle: 'false'
-      target: '1774432111916'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
         sourceType: http-request
         targetType: code
       id: 1774432992074-source-1774428506948-target
+      selected: false
       source: '1774432992074'
       sourceHandle: source
       target: '1774428506948'
@@ -134,6 +119,7 @@ workflow:
         sourceType: code
         targetType: if-else
       id: 1774428506948-source-1774447268688-target
+      selected: false
       source: '1774428506948'
       sourceHandle: source
       target: '1774447268688'
@@ -145,6 +131,7 @@ workflow:
         sourceType: if-else
         targetType: http-request
       id: 1774447268688-true-1774430276573-target
+      selected: false
       source: '1774447268688'
       sourceHandle: 'true'
       target: '1774430276573'
@@ -156,6 +143,7 @@ workflow:
         sourceType: if-else
         targetType: answer
       id: 1774447268688-false-1774447301665-target
+      selected: false
       source: '1774447268688'
       sourceHandle: 'false'
       target: '1774447301665'
@@ -167,6 +155,7 @@ workflow:
         sourceType: parameter-extractor
         targetType: if-else
       id: 1774253109138-source-1774320810676-target
+      selected: false
       source: '1774253109138'
       sourceHandle: source
       target: '1774320810676'
@@ -175,12 +164,13 @@ workflow:
       zIndex: 0
     - data:
         isInLoop: false
-        sourceType: if-else
-        targetType: if-else
-      id: 1774320810676-true-1774432149825-target
-      source: '1774320810676'
-      sourceHandle: 'true'
-      target: '1774432149825'
+        sourceType: code
+        targetType: http-request
+      id: 1774452207258-source-1774432992074-target
+      selected: false
+      source: '1774452207258'
+      sourceHandle: source
+      target: '1774432992074'
       targetHandle: target
       type: custom
       zIndex: 0
@@ -188,8 +178,8 @@ workflow:
         isInLoop: false
         sourceType: if-else
         targetType: code
-      id: 1774432149825-true-1774452207258-target
-      source: '1774432149825'
+      id: 1774320810676-true-1774452207258-target
+      source: '1774320810676'
       sourceHandle: 'true'
       target: '1774452207258'
       targetHandle: target
@@ -198,11 +188,55 @@ workflow:
     - data:
         isInLoop: false
         sourceType: code
-        targetType: http-request
-      id: 1774452207258-source-1774432992074-target
-      source: '1774452207258'
+        targetType: if-else
+      id: 1774431554297-source-1774432149825-target
+      source: '1774431554297'
       sourceHandle: source
-      target: '1774432992074'
+      target: '1774432149825'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1774432149825-true-answer-target
+      source: '1774432149825'
+      sourceHandle: 'true'
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1774432149825-false-1774518765228-target
+      source: '1774432149825'
+      sourceHandle: 'false'
+      target: '1774518765228'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1774518765228-source-1774518869930-target
+      source: '1774518765228'
+      sourceHandle: source
+      target: '1774518869930'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1774518869930-source-1774432111916-target
+      source: '1774518869930'
+      sourceHandle: source
+      target: '1774432111916'
       targetHandle: target
       type: custom
       zIndex: 0
@@ -243,12 +277,12 @@ workflow:
       height: 103
       id: answer
       position:
-        x: 3326.8357901960185
-        y: 277.41446488391665
+        x: 3815.0535291444608
+        y: 183.44003776027228
       positionAbsolute:
-        x: 3326.8357901960185
-        y: 277.41446488391665
-      selected: true
+        x: 3815.0535291444608
+        y: 183.44003776027228
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -475,30 +509,30 @@ workflow:
       height: 52
       id: '1774431554297'
       position:
-        x: 3017.6541673676525
-        y: 74.04485112582134
+        x: 3065.313456687572
+        y: 128.21823020872048
       positionAbsolute:
-        x: 3017.6541673676525
-        y: 74.04485112582134
+        x: 3065.313456687572
+        y: 128.21823020872048
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 242
     - data:
-        answer: 还未学会如何修改模板
+        answer: '{{#1774518869930.text#}}'
         selected: false
         title: 直接回复 3
         type: answer
         variables: []
-      height: 100
+      height: 103
       id: '1774432111916'
       position:
-        x: 2711.513865103774
-        y: 685.562737489776
+        x: 4632.590679158371
+        y: 479.6599952435379
       positionAbsolute:
-        x: 2711.513865103774
-        y: 685.562737489776
+        x: 4632.590679158371
+        y: 479.6599952435379
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -523,11 +557,11 @@ workflow:
       height: 124
       id: '1774432149825'
       position:
-        x: 1070.7445965772458
-        y: 24.846422601844267
+        x: 3402.1431337875724
+        y: 269.2398980475248
       positionAbsolute:
-        x: 1070.7445965772458
-        y: 24.846422601844267
+        x: 3402.1431337875724
+        y: 269.2398980475248
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -622,11 +656,11 @@ workflow:
       height: 119
       id: '1774447301665'
       position:
-        x: 2874.80911086045
-        y: 508.4582019486791
+        x: 2646.53424229674
+        y: 516.3752494133164
       positionAbsolute:
-        x: 2874.80911086045
-        y: 508.4582019486791
+        x: 2646.53424229674
+        y: 516.3752494133164
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -663,8 +697,160 @@ workflow:
       targetPosition: left
       type: custom
       width: 242
+    - data:
+        dataset_ids:
+        - S23oyNKKtSteowhMlaB6q+tkIkynR54p4OEKKHLWSC69TbVNsZqH0cWRTXJJPBDl
+        multiple_retrieval_config:
+          reranking_enable: false
+          reranking_mode: reranking_model
+          reranking_model:
+            model: bce-reranker-base_v1
+            provider: langgenius/wenxin/wenxin
+          top_k: 4
+        query_variable_selector:
+        - sys
+        - query
+        retrieval_mode: multiple
+        selected: false
+        title: 知识检索
+        type: knowledge-retrieval
+      height: 90
+      id: '1774518765228'
+      position:
+        x: 3728.582022489097
+        y: 415.75092177971305
+      positionAbsolute:
+        x: 3728.582022489097
+        y: 415.75092177971305
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1774518765228'
+          - result
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: bae39b18-417b-4e14-9128-023809109564
+          role: system
+          text: '# 角色定义
+
+
+
+            你是专业的【阿里巴巴低代码协议 1.0 解析与修改专家】。
+
+            你**只处理、解析、修改低代码协议 JSON**，不回答无关问题。
+
+
+
+            # 输入规则
+
+
+
+            原始输入： {{#1774431554297.result#}}
+
+            提取JSON：从原始输入中解析出数组，取$[0].schema作为待修改的JSON
+
+
+
+            # 知识库
+
+            {{#context#}}
+
+
+
+            # 修改要求参考
+
+            {{#sys.query#}}
+
+
+            # 核心工作范围
+
+
+
+            1. 解析低代码协议 JSON，输出结构说明
+
+            2. 根据用户指令修改协议内容（增/删/改组件、props、事件、children）
+
+            3. 校验协议是否符合阿里LowCode 1.0 规范
+
+            4. 只处理表单、表格相关组件
+
+            5. 严格遵守协议 1.0 结构，不使用任何外部知识
+
+
+
+            # 绝对禁止行为
+
+
+
+            1. 禁止使用知识库以外的任何知识
+
+            2. 禁止编造协议结构、组件名、字段名
+
+            3. 禁止修改协议版本号（必须保持 1.0.0）
+
+            4. 不知道、不确定、不在知识库中 → 直接回复：无法执行，知识库无相关规则
+
+            5. 禁止输出解释性文字，禁止输出 markdown、代码块以外内容
+
+
+
+            # 工作规则（必须严格遵守）
+
+
+
+            1. 只基于【知识库】中的低代码 1.0 协议规则工作
+
+            2. 修改后必须输出**完整、合法、可直接运行**的 JSON
+
+            3. 保持原协议结构不变：version / componentsTree / methods / lifeCycles
+
+            4. 组件名、字段名、props 必须与知识库完全一致
+
+            5. 修改后自动做格式校验：JSON 无语法错误、引号闭合、逗号正确
+
+
+
+            # 输出规则
+
+
+
+            1. 输出原始输入修改后的JSON
+
+            2. 严格返回修改后的JSON， **只输出纯净 JSON**，无任何多余文字
+
+            3. 无法处理 → 只输出：无法执行，知识库无相关规则'
+        selected: false
+        structured_output_enabled: true
+        title: LLM
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1774518869930'
+      position:
+        x: 4206.26492977835
+        y: 473.91650346855283
+      positionAbsolute:
+        x: 4206.26492977835
+        y: 473.91650346855283
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
     viewport:
-      x: -208.3202493826342
-      y: 264.3968369286192
-      zoom: 0.28717458874925944
+      x: -878.2546673151073
+      y: 201.94469156572254
+      zoom: 0.5000000000000003
   rag_pipeline_variables: []

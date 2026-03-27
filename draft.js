@@ -39,3 +39,42 @@ function main({layerRes}) {
       result: list
   }
 }
+
+
+
+
+
+
+
+function findNodeInTree(tree, name) {
+  if (!tree || !tree.length) return null;
+  for (let node of tree) {
+    if (node.orgName === name || name.indexOf(node.orgName)>=0) {
+      return node;
+    }
+    const child = findNodeInTree(node.children, name);
+    if (child) return child;
+  }
+  return null;
+}
+function main({orgRes, orgName}) {
+  let orgNode = null;
+  if(!(orgName == null || orgName == '')) {
+    try {
+      const orgResJson = JSON.parse(orgRes);
+      if (orgResJson && orgResJson.success && orgResJson.data) {
+        let node = orgResJson.data;
+        orgNode = { orgCode: orgResJson.data.orgCode, orgName: orgResJson.data.orgName, orgLevel: orgResJson.data.orgLevel};
+        let matchNode = findNodeInTree(orgResJson.data.children || [], orgName)
+        if (matchNode) {
+          node = matchNode;
+        }
+        orgNode = { orgCode: node.orgCode, orgName: node.orgName, orgLevel: node.orgLevel};
+      }
+    } catch(err) {
+    }
+  }
+  return {
+      result: orgNode
+  }
+}

@@ -324,6 +324,8 @@ AI Agent 在生成或解析低代码页面时，必须严格遵循此结构，�
 | 参数	| 说明	| 类型 | 默认值	| 备注 |
 | :--: | :--: | :--: | :--: | :--: |
 | dragType | 拖拽类型 | String | free | 自由布局/流式布局 |
+| defaultYear | 年份 | String | 2025 |  |
+| orgCodeInfo | 组织机构编码 | String | 86 | 组织机构编码 |
 
 ### 5.3 LayoutBlock 组件
 
@@ -443,7 +445,9 @@ AI Agent 在生成或解析低代码页面时，必须严格遵循此结构，�
 | 参数	| 说明	| 类型 | 默认值	| 备注 |
 | :--: | :--: | :--: | :--: | :--: |
 | basicInfo | 基本参数 | IConfigBasicInfo | {} | 地图中心点、级别等参数 |
-| basicMap | 底图服务id | String | 10008 |      |
+| basicMap | 底图服务id | String | 10008 | 地图的底图 |
+| layerList | 图层配置 | Object | {} | 资源图层、时序图层配置 |
+| toolBar | 工具栏集合 | Array<Object> | [] | 工具栏配置 |
 
 - IConfigBasicInfo 结构
 

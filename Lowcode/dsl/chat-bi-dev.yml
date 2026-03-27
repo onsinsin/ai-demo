@@ -198,28 +198,6 @@ workflow:
       zIndex: 0
     - data:
         isInLoop: false
-        sourceType: if-else
-        targetType: answer
-      id: 1774432149825-true-answer-target
-      source: '1774432149825'
-      sourceHandle: 'true'
-      target: answer
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
-        sourceType: if-else
-        targetType: knowledge-retrieval
-      id: 1774432149825-false-1774518765228-target
-      source: '1774432149825'
-      sourceHandle: 'false'
-      target: '1774518765228'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
         sourceType: knowledge-retrieval
         targetType: llm
       id: 1774518765228-source-1774518869930-target
@@ -237,6 +215,61 @@ workflow:
       source: '1774518869930'
       sourceHandle: source
       target: '1774432111916'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1774577528133-source-1774577593996-target
+      source: '1774577528133'
+      sourceHandle: source
+      target: '1774577593996'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: llm
+      id: 1774577593996-source-1774518869930-target
+      source: '1774577593996'
+      sourceHandle: source
+      target: '1774518869930'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1774432149825-true-1774518765228-target
+      source: '1774432149825'
+      sourceHandle: 'true'
+      target: '1774518765228'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: http-request
+      id: 1774432149825-true-1774577528133-target
+      source: '1774432149825'
+      sourceHandle: 'true'
+      target: '1774577528133'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1774432149825-false-answer-target
+      source: '1774432149825'
+      sourceHandle: 'false'
+      target: answer
       targetHandle: target
       type: custom
       zIndex: 0
@@ -277,11 +310,11 @@ workflow:
       height: 103
       id: answer
       position:
-        x: 3815.0535291444608
-        y: 183.44003776027228
+        x: 4206.752382685941
+        y: 946.057588705034
       positionAbsolute:
-        x: 3815.0535291444608
-        y: 183.44003776027228
+        x: 4206.752382685941
+        y: 946.057588705034
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -292,13 +325,17 @@ workflow:
         instruction: '你是精准参数提取助手。任务：只提取，不解释，严格执行规则。
 
 
-          请严格提取以下3个参数：
 
-          1 name:  专题名称，原文提取
+          请严格提取以下4个参数：
+
+          1 name:  专题名称，原文提取
 
           2 year：yyyy格式的年份，未提取到内容时，强制使用默认值："2026"
 
-          3 isModify：布尔，非必填，默认为false
+          3 org: 组织机构
+
+          4 isModify：布尔，非必填，默认为false，当提到组织机构、年份或者有修改的要求时，为true
+
 
 
           输出要求：
@@ -306,20 +343,17 @@ workflow:
           仅返回纯净JSON，无任何其他文字
 
 
+
           示例输入一：查看2021年度的遥感监测专题模板
 
-          示例输出一：{"year": "2021", "name": "遥感监测", "isModify": false}
-
-
-          示例输入二：去年的气象专题，增加一个图表
-
-          示例输出二：{"year": "2025","name": "气象","isModify": true}
+          示例输出一：{"year": "2021", "name": "遥感监测", "org":"", "isModify": false}
 
 
 
-          示例输入三：气象
 
-          示例输出三：{"year": "2026", "name": "气象","isModify": false}'
+          示例输入二：生成2024年宝泉岭的物联网专题，并修改地图缩放级别为11、修改俯仰角为60
+
+          示例输出二：{"year": "2024", "name": "物联网", "org":"宝泉岭","isModify": true}'
         model:
           completion_params:
             temperature: 0.1
@@ -336,10 +370,14 @@ workflow:
           name: year
           required: false
           type: string
-        - description: 是否有修改专题的要求
+        - description: 是否有修改专题的要求，当提到组织机构、年份时，为true
           name: isModify
           required: false
           type: boolean
+        - description: 组织机构名称
+          name: org
+          required: false
+          type: string
         query:
         - sys
         - query
@@ -353,10 +391,10 @@ workflow:
       id: '1774253109138'
       position:
         x: 347.69110679930833
-        y: 46.69082684577356
+        y: 45.37131893500066
       positionAbsolute:
         x: 347.69110679930833
-        y: 46.69082684577356
+        y: 45.37131893500066
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -381,18 +419,18 @@ workflow:
       height: 124
       id: '1774320810676'
       position:
-        x: 763.6337916546411
-        y: 56.90535026421176
+        x: 845.161319819447
+        y: 28.2710356185126
       positionAbsolute:
-        x: 763.6337916546411
-        y: 56.90535026421176
+        x: 845.161319819447
+        y: 28.2710356185126
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 242
     - data:
-        answer: 未识别到模板名称：{{#sys.query#}}
+        answer: 请明确专题名称：{{#sys.query#}}
         selected: false
         title: 直接回复 2
         type: answer
@@ -510,10 +548,10 @@ workflow:
       id: '1774431554297'
       position:
         x: 3065.313456687572
-        y: 128.21823020872048
+        y: 126.21823020872054
       positionAbsolute:
         x: 3065.313456687572
-        y: 128.21823020872048
+        y: 126.21823020872054
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -528,11 +566,11 @@ workflow:
       height: 103
       id: '1774432111916'
       position:
-        x: 4632.590679158371
-        y: 479.6599952435379
+        x: 5006.927421375704
+        y: 394.4981705518594
       positionAbsolute:
-        x: 4632.590679158371
-        y: 479.6599952435379
+        x: 5006.927421375704
+        y: 394.4981705518594
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -542,19 +580,33 @@ workflow:
         cases:
         - case_id: 'true'
           conditions:
+          - comparison_operator: not empty
+            id: 7156bb57-80cf-46de-96f9-56e1d03b4f30
+            value: ''
+            varType: string
+            variable_selector:
+            - '1774253109138'
+            - org
+          - comparison_operator: not empty
+            id: b5a1d163-fdce-4a15-962c-529862631adc
+            value: ''
+            varType: string
+            variable_selector:
+            - '1774253109138'
+            - year
           - comparison_operator: is
-            id: 005969a8-53e9-4b5e-978d-7f40db34fa5a
-            value: false
+            id: d22351b8-cef3-442e-8783-c39e196fe036
+            value: true
             varType: boolean
             variable_selector:
             - '1774253109138'
             - isModify
           id: 'true'
-          logical_operator: and
+          logical_operator: or
         selected: false
         title: 条件分支 2
         type: if-else
-      height: 124
+      height: 176
       id: '1774432149825'
       position:
         x: 3402.1431337875724
@@ -586,7 +638,7 @@ workflow:
 
                   "templateType": "pageTemplate"
 
-              }'
+              }/'
           type: json
         headers: access-token:{{#1774249878753.serverKey#}}
         method: post
@@ -648,7 +700,7 @@ workflow:
       type: custom
       width: 242
     - data:
-        answer: 未检索到模板：{{#1774253109138.name#}}
+        answer: 没找到对应的专题模板：{{#1774253109138.name#}}
         selected: false
         title: 直接回复 4
         type: answer
@@ -687,11 +739,11 @@ workflow:
       height: 52
       id: '1774452207258'
       position:
-        x: 1357.7652566346815
-        y: 14.527272905856634
+        x: 1345.5775487485357
+        y: -29.000255258949466
       positionAbsolute:
-        x: 1357.7652566346815
-        y: 14.527272905856634
+        x: 1345.5775487485357
+        y: -29.000255258949466
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -717,11 +769,11 @@ workflow:
       height: 90
       id: '1774518765228'
       position:
-        x: 3728.582022489097
-        y: 415.75092177971305
+        x: 4019.345910630002
+        y: 283.42723615870256
       positionAbsolute:
-        x: 3728.582022489097
-        y: 415.75092177971305
+        x: 4019.345910630002
+        y: 283.42723615870256
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -733,6 +785,18 @@ workflow:
           variable_selector:
           - '1774518765228'
           - result
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+            {{#sys.conversation_id#}}
+
+            {{#sys.files#}}/'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 50
         model:
           completion_params:
             temperature: 0.7
@@ -746,13 +810,16 @@ workflow:
 
 
 
+
             你是专业的【阿里巴巴低代码协议 1.0 解析与修改专家】。
 
             你**只处理、解析、修改低代码协议 JSON**，不回答无关问题。
 
 
 
+
             # 输入规则
+
 
 
 
@@ -762,18 +829,26 @@ workflow:
 
 
 
+
             # 知识库
 
             {{#context#}}
 
 
 
-            # 修改要求参考
 
-            {{#sys.query#}}
+            # 修改要求
+
+
+
+            严格参考：{{#sys.query#}}
+
+            1. 必须将Page组件props中的组织机构编码设置为：{{#1774577593996.result#}}、年份设置为:{{#1774253109138.year#}}
+
 
 
             # 核心工作范围
+
 
 
 
@@ -789,7 +864,9 @@ workflow:
 
 
 
+
             # 绝对禁止行为
+
 
 
 
@@ -805,7 +882,9 @@ workflow:
 
 
 
+
             # 工作规则（必须严格遵守）
+
 
 
 
@@ -821,7 +900,9 @@ workflow:
 
 
 
+
             # 输出规则
+
 
 
 
@@ -839,18 +920,104 @@ workflow:
       height: 88
       id: '1774518869930'
       position:
-        x: 4206.26492977835
-        y: 473.91650346855283
+        x: 4697.2554474773615
+        y: 381.89943328096473
       positionAbsolute:
-        x: 4206.26492977835
-        y: 473.91650346855283
+        x: 4697.2554474773615
+        y: 381.89943328096473
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-36
+            key: ''
+            type: text
+            value: "{\n    \"year\":{{#1774253109138.year#}} ,\n    \"maxLevel\":\
+              \ 3,\n    \"useOrgType\": 1,\n    \"orgCode\": \"86\"\n}"
+          type: json
+        headers: access-token:{{#1774249878753.serverKey#}}
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求 3
+        type: http-request
+        url: http://10.11.14.211:30879/datav-api/manage/org/getOrgTree
+        variables: []
+      height: 154
+      id: '1774577528133'
+      position:
+        x: 4043.2854258493144
+        y: 488.6882994619274
+      positionAbsolute:
+        x: 4043.2854258493144
+        y: 488.6882994619274
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "function findNodeInTree(tree, name) {\n  if (!tree || !tree.length)\
+          \ return null;\n  for (let node of tree) {\n    if (node.orgName === name\
+          \ || node.orgName?.includes(name)) {\n      return node;\n    }\n    const\
+          \ child = findNodeInTree(node.children, name);\n    if (child) return child;\n\
+          \  }\n  return null;\n}\nfunction main({orgRes, orgName}) {\n  let orgCode\
+          \ = '86';\n  if(!(orgName == null || orgName == '' || /^(全垦区)|(垦区)|(集团)$/.test(orgName)))\
+          \ {\n    try {\n      const orgResJson = JSON.parse(orgRes);\n      if (orgResJson\
+          \ && orgResJson.success && orgResJson.data) {\n        const node = findNodeInTree(orgResJson.data.children\
+          \ || [], orgName)\n        if (node) {\n          orgCode = node.orgCode\n\
+          \        }\n      }\n    } catch(err) {\n      \n    }\n  }\n  return {\n\
+          \      result: orgCode\n  }\n}"
+        code_language: javascript
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 代码执行 4
+        type: code
+        variables:
+        - value_selector:
+          - '1774577528133'
+          - body
+          value_type: string
+          variable: orgRes
+        - value_selector:
+          - '1774253109138'
+          - org
+          value_type: string
+          variable: orgName
+      height: 52
+      id: '1774577593996'
+      position:
+        x: 4393.021367734274
+        y: 528.9590099336308
+      positionAbsolute:
+        x: 4393.021367734274
+        y: 528.9590099336308
       selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 242
     viewport:
-      x: -2492.582813255099
-      y: 14.691148724720733
-      zoom: 0.7578582832552012
+      x: -2731.1703991872573
+      y: 132.80484781829935
+      zoom: 0.6597539553864495
   rag_pipeline_variables: []
