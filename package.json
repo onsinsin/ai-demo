@@ -1,0 +1,24 @@
+{
+  "name": "ai-map-demo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "基于 AI 对话的地图大屏技术验证：CopilotKit + LangGraph + DeepSeek + 高德 + Mapbox",
+  "engines": {
+    "node": ">=20.16.0"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build:mcp": "npm run build --workspace @ai-map/geocode-mcp",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "dev": "concurrently -k -n agent,server,web -c blue,green,magenta \"npm:dev:agent\" \"npm:dev:server\" \"npm:dev:web\"",
+    "dev:agent": "npm run dev --workspace @ai-map/agent",
+    "dev:server": "npm run dev --workspace @ai-map/server",
+    "dev:web": "npm run dev --workspace @ai-map/web"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
