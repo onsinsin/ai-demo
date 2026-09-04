@@ -9,13 +9,21 @@ export interface ViewState {
   bearing: number;
 }
 
+/** flyTo 的可选参数：缩放、俯仰角（pitch，0-60）、朝向角（bearing，0-360） */
+export interface FlyToOptions {
+  zoom?: number;
+  pitch?: number;
+  bearing?: number;
+}
+
 interface MapContextValue {
   mapRef: { current: mapboxgl.Map | null };
   viewState: ViewState;
   setMap: (m: mapboxgl.Map | null) => void;
   updateViewState: (v: ViewState) => void;
-  flyTo: (lng: number, lat: number, zoom?: number) => void;
+  flyTo: (lng: number, lat: number, options?: FlyToOptions) => void;
   addMarker: (lng: number, lat: number, label: string) => void;
+  clearMarkers: () => void;
   minimapVisible: boolean;
   setMinimapVisible: (v: boolean) => void;
 }
@@ -31,6 +39,7 @@ export function MapProvider({ children }: { children: ReactNode }) {
     bearing: 0,
   });
   const [minimapVisible, setMinimapVisible] = useState(true);
+  const markersRef = useRef<mapboxgl.Marker[]>([]);
 
   const setMap = useCallback((m: mapboxgl.Map | null) => {
     mapRef.current = m;
@@ -38,23 +47,36 @@ export function MapProvider({ children }: { children: ReactNode }) {
 
   const updateViewState = useCallback((v: ViewState) => setViewState(v), []);
 
-  const flyTo = useCallback((lng: number, lat: number, zoom = 13) => {
+  const flyTo = useCallback((lng: number, lat: number, options: FlyToOptions = {}) => {
     const [wgsLng, wgsLat] = gcj02ToWgs84(lng, lat);
-    mapRef.current?.flyTo({ center: [wgsLng, wgsLat], zoom, essential: true });
+    const opts: mapboxgl.FlyToOptions = {
+      center: [wgsLng, wgsLat],
+      zoom: options.zoom ?? 13,
+      essential: true,
+    };
+    if (options.pitch != null) opts.pitch = options.pitch;
+    if (options.bearing != null) opts.bearing = options.bearing;
+    mapRef.current?.flyTo(opts);
   }, []);
 
   const addMarker = useCallback((lng: number, lat: number, label: string) => {
     if (!mapRef.current) return;
     const [wgsLng, wgsLat] = gcj02ToWgs84(lng, lat);
-    new mapboxgl.Marker({ color: "#e63e3e" })
+    const marker = new mapboxgl.Marker({ color: "#e63e3e" })
       .setLngLat([wgsLng, wgsLat])
       .setPopup(new mapboxgl.Popup({ offset: 25 }).setText(label))
       .addTo(mapRef.current);
+    markersRef.current.push(marker);
+  }, []);
+
+  const clearMarkers = useCallback(() => {
+    markersRef.current.forEach((m) => m.remove());
+    markersRef.current = [];
   }, []);
 
   return (
     <MapContext.Provider
-      value={{ mapRef, viewState, setMap, updateViewState, flyTo, addMarker, minimapVisible, setMinimapVisible }}
+      value={{ mapRef, viewState, setMap, updateViewState, flyTo, addMarker, clearMarkers, minimapVisible, setMinimapVisible }}
     >
       {children}
     </MapContext.Provider>

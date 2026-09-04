@@ -3,10 +3,15 @@ import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { gcj02ToWgs84 } from "./mapUtils";
 import { useMap } from "./MapContext";
-import type { SearchResult } from "../components/SearchResultCard";
+
+export interface MiniMapItem {
+  lng: number;
+  lat: number;
+  name: string;
+}
 
 interface Props {
-  results: SearchResult[];
+  items: MiniMapItem[];
 }
 
 /**
@@ -15,7 +20,7 @@ interface Props {
  * - 每个点位：红点 + 常显名称标签（自定义 DOM marker）+ 点击弹 Popup。
  * - 由 MapContext 的 minimapVisible 控制显隐，隐藏时返回 null。
  */
-export default function SearchMiniMap({ results }: Props) {
+export default function ResultsMiniMap({ items }: Props) {
   const { minimapVisible } = useMap();
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -31,8 +36,8 @@ export default function SearchMiniMap({ results }: Props) {
     });
 
     const points: [number, number][] = [];
-    for (const r of results) {
-      const [wgsLng, wgsLat] = gcj02ToWgs84(r.lng, r.lat);
+    for (const item of items) {
+      const [wgsLng, wgsLat] = gcj02ToWgs84(item.lng, item.lat);
       points.push([wgsLng, wgsLat]);
 
       // 自定义 DOM marker：红点 + 常显名称标签
@@ -42,12 +47,12 @@ export default function SearchMiniMap({ results }: Props) {
       dot.className = "mini-marker__dot";
       const label = document.createElement("span");
       label.className = "mini-marker__label";
-      label.textContent = r.name; // textContent 防 XSS
+      label.textContent = item.name; // textContent 防 XSS
       el.append(dot, label);
 
       new mapboxgl.Marker({ element: el })
         .setLngLat([wgsLng, wgsLat])
-        .setPopup(new mapboxgl.Popup({ offset: 16 }).setText(r.name))
+        .setPopup(new mapboxgl.Popup({ offset: 16 }).setText(item.name))
         .addTo(map);
     }
 
@@ -63,7 +68,7 @@ export default function SearchMiniMap({ results }: Props) {
     return () => {
       map.remove();
     };
-  }, [results, minimapVisible]);
+  }, [items, minimapVisible]);
 
   if (!minimapVisible) return null;
   return <div ref={containerRef} className="mini-map" />;

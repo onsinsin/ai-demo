@@ -1,4 +1,4 @@
-export interface SearchResult {
+export interface PoiResult {
   id?: string;
   name: string;
   address?: string;
@@ -9,11 +9,11 @@ export interface SearchResult {
 }
 
 interface Props {
-  result: SearchResult;
+  result: PoiResult;
   onLocate: () => void;
 }
 
-export default function SearchResultCard({ result, onLocate }: Props) {
+export default function PoiCard({ result, onLocate }: Props) {
   return (
     <div className="result-card">
       <div className="result-card__header">

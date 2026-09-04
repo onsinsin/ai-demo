@@ -8,8 +8,8 @@ const SYSTEM_PROMPT = `你是「地图大屏」的智能助手，帮助用户通
 你拥有以下能力与工具（部分为前端注入工具）：
 1. 地名/地址检索：用户问某个地点（如"故宫"、"上海外滩"、"中关村"）时，调用 search_place 或 geocode 检索。
 2. 展示检索结果：拿到检索结果后，务必调用 show_search_results 工具，把候选点以卡片形式展示给用户（供点击定位）。
-3. 结果上图：可选调用 add_markers 把点位标记到地图上。
-4. 地图视野定位：用户要求"飞过去/定位/跳转/看看哪里"时，调用 fly_to 工具，传经度 lng、纬度 lat、缩放 zoom。
+3. 结果上图：可选调用 add_markers 把点位标记到地图上；用户要求清除/清空标记时调用 clear_markers。
+4. 地图视野定位：用户要求"飞过去/定位/跳转/看看哪里"时，调用 fly_to 工具，传经度 lng、纬度 lat、缩放 zoom；需要斜视角/旋转视角时再传俯仰角 pitch（0-60）和朝向角 bearing（0-360）。
 5. 读取地图状态：用户问当前中心点/层级/视角时，调用 get_map_state 工具，或直接使用已提供的地图视野上下文。
 
 注意：
@@ -20,7 +20,7 @@ const { tools } = await createMcpTools();
 
 /**
  * 关键：用 copilotkitMiddleware 把前端 useCopilotAction 注册的工具
- * （fly_to / get_map_state / add_markers / show_search_results）动态合并进
+ * （fly_to / get_map_state / add_markers / clear_markers / show_search_results）动态合并进
  * 大模型可调用的工具列表，并把前端工具的调用结果回传浏览器。
  *
  * 不用 middleware 的话，前端工具只会被塞进 state.copilotkit.actions，
